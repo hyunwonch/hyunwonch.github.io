@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Circuit Design/Computer Architecture
+subtitle: `Circuit Design · Computer Architecture`
 
 profile:
   align: center
