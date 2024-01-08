@@ -11,28 +11,25 @@
 - title: Education
   type: time_table
   contents:
-    - title: PhD
+    - title: PhD. in Electrical and Computer Engineering
       institution: University of Michigan, Ann Arbor
       year: 2028
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
+        - Advised by Professors David Blaauw and Hun-Seok Kim
+        # - title: Description 3.
+        #   contents:
+        #     - Sub-description 1.
+        #     - Sub-description 2.
     - title: MS
       institution: University of Michigan, Ann Arbor
       year: 2024
       description:
-        - Description 1.
-        - Description 2.
+        - Advised by Professors David Blaauw and Hun-Seok Kim
     - title: BS
       institution: Korea University, Seoul, South Korea
       year: 2024
       description:
-        - Description 1.
-        - Description 2.
+        - Advised by Professors Jongsun Park
 
 - title: Experience
   type: time_table
@@ -54,9 +51,9 @@
         - Description 1.
         - Description 2.
 
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
+    - title: Research Assistant (RA)
+      institution: Korea University, Seoul, South Korea
+      year: 2020-2021
 
     - title: Professor of Theoretical Physics
       institution: Karl-Ferdinand University, Prague, Czechoslovakia
@@ -78,24 +75,24 @@
   type: time_table
   contents:
     - year: 1921
-      items: 
-        - Nobel Prize in Physics 
+      items:
+        - Nobel Prize in Physics
         - Matteucci Medal
     - year: 2029
-      items: 
+      items:
         - Max Planck Medal
 
 - title: Academic Interests
   type: nested_list
   contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
+    - title: Coarse-Grained Reconfigurable Architecture (CGRA)
       items:
         - Description 1.
         - Description 2.
+    - title: Reconfigurable Accelerator
+      items:
+        - Programmable CNN Accerlerator
+        - Reconfigurable Forward Error Correction (FEC) Encoder
 
 - title: Other Interests
   type: list
