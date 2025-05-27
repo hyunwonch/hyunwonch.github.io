@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started my master's at the University of Michigan-Ann Arbor ! :sparkles: :smile:
+Started master's at the University of Michigan-Ann Arbor ! :hear_no_evil:
