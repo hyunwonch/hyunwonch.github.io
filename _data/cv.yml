@@ -30,29 +30,29 @@
       description:
         - Advised by Professor Jongsun Park
 
-- title: Experience
-  type: time_table
-  contents:
-    - title: Graduate Student Research Assistant (GSRA)
-      institution: University of Michigan, Ann Arbor
-      year: 2023-2024
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Research Assistant (RA)
-      institution: University of Michigan, Ann Arbor
-      year: 2023
-      description:
-        - Description 1.
-        - Description 2.
+# - title: Experience
+#   type: time_table
+#   contents:
+#     - title: Graduate Student Research Assistant (GSRA)
+#       institution: University of Michigan, Ann Arbor
+#       year: 2023-2024
+#       description:
+#         - Description 1.
+#         - Description 2.
+#         - title: Description 3.
+#           contents:
+#             - Sub-description 1.
+#             - Sub-description 2.
+#     - title: Research Assistant (RA)
+#       institution: University of Michigan, Ann Arbor
+#       year: 2023
+#       description:
+#         - Description 1.
+#         - Description 2.
 
-    - title: Research Assistant (RA)
-      institution: Korea University, Seoul, South Korea
-      year: 2020-2021
+#     - title: Research Assistant (RA)
+#       institution: Korea University, Seoul, South Korea
+#       year: 2020-2021
 
 
 # - title: Open Source Projects
@@ -73,17 +73,17 @@
 #       items:
 #         - Max Planck Medal
 
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Coarse-Grained Reconfigurable Architecture (CGRA)
-      items:
-        - Description 1.
-        - Description 2.
-    - title: Reconfigurable Accelerator
-      items:
-        - Programmable CNN Accelerator
-        - Reconfigurable Forward Error Correction (FEC) Accelerator
+# - title: Academic Interests
+#   type: nested_list
+#   contents:
+#     - title: Coarse-Grained Reconfigurable Architecture (CGRA)
+#       items:
+#         - Description 1.
+#         - Description 2.
+#     - title: Reconfigurable Accelerator
+#       items:
+#         - Programmable CNN Accelerator
+#         - Reconfigurable Forward Error Correction (FEC) Accelerator
 
 # - title: Other Interests
 #   type: list
