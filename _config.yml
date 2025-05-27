@@ -267,7 +267,7 @@ jekyll-archives:
     category: '/blog/category/:name/'
 
 display_tags: ['computer architecture', 'dataflow', 'VLSI', 'circuit', 'AI'] # these tags will be displayed on the front page of your blog
-display_categories: ['blockquotes'] # these categories will be displayed on the front page of your blog
+display_categories: ['technical', 'code', 'thoughts'] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
