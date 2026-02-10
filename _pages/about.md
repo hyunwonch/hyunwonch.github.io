@@ -19,7 +19,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hello! My name is Hyunwon Chung, and I am a PhD student at the University of Michigan. I am supervised by Professors David Blaauw and Hun-Seok Kim.
+Hello! My name is Hyunwon Chung, and I am a PhD student at the University of Michigan. I am supervised by Professors [David Blaauw](https://blaauw.engin.umich.edu/) and [Hun-Seok Kim](https://kim.engin.umich.edu/).
 
 My research is primarily focused on reconfigurable architectures, with a interest in their applications across diverse fields such as communication systems and machine learning. My current work involves exploring and developing `dataflow architectures` on reconfigurable hardware to achieve high performance while maintaining efficient resource utilization.
 
