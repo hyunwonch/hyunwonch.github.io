@@ -4,6 +4,17 @@
 
 // Typography
 
+body {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--global-text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
 p,
 h1,
 h2,
@@ -159,7 +170,7 @@ blockquote {
   color: var(--global-theme-color);
 }
 
-// Profile
+// Profile — CSS grid masthead
 
 .profile {
   width: 100%;
@@ -167,7 +178,9 @@ blockquote {
   .more-info {
     margin-bottom: 5px;
     margin-top: 5px;
-    font-family: monospace;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--global-text-color-light);
 
     p {
       display: inline-block;
@@ -176,6 +189,109 @@ blockquote {
   }
 }
 
+// Masthead grid layout
+.profile-masthead {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.5rem 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+
+  .profile-photo {
+    grid-row: 1;
+    grid-column: 1;
+
+    img {
+      width: 180px;
+      height: auto;
+    }
+  }
+
+  .profile-info {
+    grid-row: 1;
+    grid-column: 2;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .desc {
+      color: var(--global-text-color-light);
+      font-family: 'Work Sans', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .more-info {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--global-text-color-light);
+      margin-bottom: 0.5rem;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .masthead-social {
+      margin-top: 0.5rem;
+
+      .contact-icons {
+        font-size: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+
+        a {
+          i::before {
+            color: var(--global-text-color-light);
+            transition: color 0.2s ease-in-out;
+          }
+
+          &:hover {
+            i::before {
+              color: var(--global-theme-color);
+            }
+          }
+        }
+      }
+
+      .contact-note {
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+}
+
+// Responsive: single column on mobile
+@media (max-width: 600px) {
+  .profile-masthead {
+    grid-template-columns: 1fr;
+    text-align: center;
+
+    .profile-photo {
+      grid-column: 1;
+      justify-self: center;
+
+      img {
+        width: 150px;
+      }
+    }
+
+    .profile-info {
+      grid-column: 1;
+
+      .masthead-social .contact-icons {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Legacy profile float (for non-about pages)
 .profile.float-right {
   margin-left: 1rem;
 }
@@ -217,7 +333,7 @@ blockquote {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  opacity: 1;
 }
 
 .navbar .dropdown-menu {
@@ -259,6 +375,7 @@ blockquote {
 
   .navbar-nav .nav-item .nav-link {
     color: var(--global-text-color);
+    font-family: 'Work Sans', sans-serif;
 
     &:hover {
       color: var(--global-hover-color);
@@ -346,13 +463,13 @@ blockquote {
   }
 }
 
-// Social (bottom)
+// Social (bottom — legacy, kept for non-about pages)
 
 .social {
   text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 1rem;
 
     a {
       i::before {
@@ -430,6 +547,15 @@ footer.sticky-bottom {
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 0.9rem;
+
+  a {
+    color: var(--global-footer-link-color);
+
+    &:hover {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
 }
 
 // CV
@@ -473,11 +599,12 @@ footer.sticky-bottom {
   border-bottom: 1px solid var(--global-divider-color);
   text-align: center;
   padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 
   h1 {
     color: var(--global-theme-color);
-    font-size: 5rem;
+    font-size: 2.5rem;
+    font-family: 'Work Sans', sans-serif;
   }
 }
 
@@ -858,6 +985,14 @@ html.transition *:after {
       }
     }
   }
+}
+
+// Section h2 dividers (about page sections)
+.post > article > h2 {
+  border-top: 1px solid var(--global-divider-color);
+  padding-top: 1.5rem;
+  margin-top: 2.5rem;
+  font-family: 'Work Sans', sans-serif;
 }
 
 progress {
