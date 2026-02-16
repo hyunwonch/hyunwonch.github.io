@@ -770,14 +770,20 @@ footer.sticky-bottom {
     background-color: var(--global-card-bg-color);
     transition: box-shadow 0.2s ease-in-out;
     height: 100%;
+    overflow: hidden;
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+    figure {
+      margin: 0;
+    }
+
     img {
       width: 100%;
       height: auto;
+      display: block;
     }
   }
 
