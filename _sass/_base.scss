@@ -760,17 +760,20 @@ footer.sticky-bottom {
 // Chip Gallery
 
 .chip-gallery {
-  .row {
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 
-  .card {
+  .chip-card {
     border: 1px solid var(--global-divider-color);
     background-color: var(--global-card-bg-color);
-    transition: box-shadow 0.2s ease-in-out;
-    height: 100%;
+    border-radius: 4px;
     overflow: hidden;
+    transition: box-shadow 0.2s ease-in-out;
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -778,20 +781,22 @@ footer.sticky-bottom {
 
     figure {
       margin: 0;
+      max-width: 100%;
     }
 
     img {
       width: 100%;
       height: auto;
       display: block;
+      max-width: 100%;
     }
-  }
 
-  .caption {
-    font-size: 0.85rem;
-    text-align: center;
-    padding: 0.75rem;
-    margin: 0;
+    .caption {
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 0.75rem;
+      margin: 0;
+    }
   }
 }
 
