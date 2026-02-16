@@ -757,6 +757,38 @@ footer.sticky-bottom {
 }
 
 
+// Chip Gallery
+
+.chip-gallery {
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+  }
+
+  .card {
+    border: 1px solid var(--global-divider-color);
+    background-color: var(--global-card-bg-color);
+    transition: box-shadow 0.2s ease-in-out;
+    height: 100%;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .caption {
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 0.75rem;
+    margin: 0;
+  }
+}
+
 // Publications
 
 .publications {
