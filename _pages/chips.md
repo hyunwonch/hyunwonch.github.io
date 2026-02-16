@@ -16,4 +16,8 @@ nav_order: 2
     {% include figure.html path="assets/img/Prowess.png" title="Prowess" class="img-fluid" %}
     <div class="caption">untitled</div>
   </div>
+  <div class="chip-card">
+    {% include figure.html path="assets/img/coming_soon.png" title="Coming Soon" class="img-fluid" %}
+    <div class="caption">Coming Soon</div>
+  </div>
 </div>
