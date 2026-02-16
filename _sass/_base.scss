@@ -769,6 +769,8 @@ footer.sticky-bottom {
   }
 
   .chip-card {
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--global-divider-color);
     background-color: var(--global-card-bg-color);
     border-radius: 4px;
@@ -782,6 +784,10 @@ footer.sticky-bottom {
     figure {
       margin: 0;
       max-width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background-color: var(--global-card-bg-color);
     }
 
     img {
@@ -796,6 +802,7 @@ footer.sticky-bottom {
       text-align: center;
       padding: 0.75rem;
       margin: 0;
+      border-top: 1px solid var(--global-divider-color);
     }
   }
 }
