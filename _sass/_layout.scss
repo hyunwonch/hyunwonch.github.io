@@ -6,9 +6,11 @@ body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  font-family: 'Source Serif 4', 'Palatino', serif;
 
   h1, h2, h3, h4, h5, h6 {
     scroll-margin-top: 66px;
+    font-family: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
   }
 }
 
