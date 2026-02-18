@@ -17,6 +17,7 @@ The discussion centers on NextSilicon's non–Von Neumann, dataflow-based archit
 As described in the interview:
 
 > "You take the intermediate representation, which is a graph, serialize it into an instruction stream, and then the processor reconstructs the graph."
+
 This statement captures a deep inefficiency in conventional processor design. Modern compilers lower source code into an intermediate representation (IR) that is fundamentally a dependency graph. However, that graph is then linearized into instructions. At runtime, hardware must rediscover dependency relationships dynamically using out-of-order execution, speculation, reorder buffers, and complex scheduling logic.
 
 In effect, we:
@@ -26,7 +27,8 @@ In effect, we:
 
 The interview raises a direct and provocative question:
 
-> "Why do the lowering and then the lifting if you can just pass through that and bypass this transformation?"
+> "Why do the lowering and then the lifting if you can just pass through that and bypass this transformation ?"
+
 ## From Instruction-Level to Graph-Level Execution
 
 Traditional processors optimize instruction-level parallelism (ILP). Even wide superscalar cores are constrained by issue width and the dynamic scheduling window. When we discuss IPC values—2, 4, perhaps 6 or higher—we are still fundamentally executing instructions one by one, albeit in parallel.
@@ -50,6 +52,7 @@ A significant portion of CPU and GPU microarchitecture exists to support instruc
 In the interview, this overhead is explicitly contrasted with the dataflow approach:
 
 > "We don't have an instruction fetch unit. We don't have an instruction cache. We don't need all of that."
+
 Eliminating these components does more than simplify the pipeline. It reallocates silicon area and power budget toward arithmetic units, memory bandwidth, and concurrency mechanisms. The potential result is improved energy efficiency and higher sustained utilization—particularly for workloads with rich dependency structures, such as HPC kernels and certain AI computations.
 
 ## The Hardware–Software Boundary
