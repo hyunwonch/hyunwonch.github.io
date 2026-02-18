@@ -42,8 +42,8 @@ The claim is not simply about wider issue. It is about sustaining throughput acr
 Conceptually:
 - CPUs execute instructions and infer dependencies.
 - Dataflow processors execute dependencies directly.
-
 This shift in abstraction is substantial.
+
 
 ## Efficiency Through Structural Simplification
 
