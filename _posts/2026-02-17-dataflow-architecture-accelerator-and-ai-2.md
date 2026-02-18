@@ -34,6 +34,7 @@ Traditional processors optimize instruction-level parallelism (ILP). Even wide s
 The dataflow model reframes the unit of execution. Instead of operating at the instruction level, it operates at the graph level. Dependencies are not inferred dynamically; they are embedded in the execution structure itself. The interview emphasizes this distinction clearly:
 
 > "It's not two IPCs, 10 IPC. It's the whole loop every cycle."
+
 The claim is not simply about wider issue. It is about sustaining throughput across the entire loop body by pipelining through the graph. If the graph exposes sufficient parallelism, functional units can remain active every cycle without repeatedly reconstructing dependency information.
 
 Conceptually:
