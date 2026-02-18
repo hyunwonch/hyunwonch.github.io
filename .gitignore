@@ -9,4 +9,3 @@ _site
 Gemfile.lock
 vendor
 install.cmd
-.claude
