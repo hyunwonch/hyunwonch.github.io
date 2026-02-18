@@ -10,14 +10,13 @@ related_posts: false
 
 ## Rethinking Execution: From Instruction Streams to Dataflow Graphs
 
-In a recent YouTube interview titled *"Ilan Tayari, VP of Architecture, NextSilicon | Ian Interviews #48"* :contentReference[oaicite:0]{index=0}, a fundamental architectural question was revisited: why do we compile programs into graphs, only to execute them as serialized instruction streams?
+In a recent YouTube interview titled *"Ilan Tayari, VP of Architecture, NextSilicon | Ian Interviews #48"*, a fundamental architectural question was revisited: why do we compile programs into graphs, only to execute them as serialized instruction streams?
 
 The discussion centers on NextSilicon's non–Von Neumann, dataflow-based architecture. What makes the conversation particularly compelling is not just the claim of higher performance, but the structural critique of how modern CPUs and GPUs execute code.
 
 As described in the interview:
 
-> "You take the intermediate representation, which is a graph, serialize it into an instruction stream, and then the processor reconstructs the graph." :contentReference[oaicite:1]{index=1}
-
+> "You take the intermediate representation, which is a graph, serialize it into an instruction stream, and then the processor reconstructs the graph."
 This statement captures a deep inefficiency in conventional processor design. Modern compilers lower source code into an intermediate representation (IR) that is fundamentally a dependency graph. However, that graph is then linearized into instructions. At runtime, hardware must rediscover dependency relationships dynamically using out-of-order execution, speculation, reorder buffers, and complex scheduling logic.
 
 In effect, we:
@@ -27,16 +26,14 @@ In effect, we:
 
 The interview raises a direct and provocative question:
 
-> "Why do the lowering and then the lifting if you can just pass through that and bypass this transformation?" :contentReference[oaicite:2]{index=2}
-
+> "Why do the lowering and then the lifting if you can just pass through that and bypass this transformation?"
 ## From Instruction-Level to Graph-Level Execution
 
 Traditional processors optimize instruction-level parallelism (ILP). Even wide superscalar cores are constrained by issue width and the dynamic scheduling window. When we discuss IPC values—2, 4, perhaps 6 or higher—we are still fundamentally executing instructions one by one, albeit in parallel.
 
 The dataflow model reframes the unit of execution. Instead of operating at the instruction level, it operates at the graph level. Dependencies are not inferred dynamically; they are embedded in the execution structure itself. The interview emphasizes this distinction clearly:
 
-> "It's not two IPCs, 10 IPC. It's the whole loop every cycle." :contentReference[oaicite:3]{index=3}
-
+> "It's not two IPCs, 10 IPC. It's the whole loop every cycle."
 The claim is not simply about wider issue. It is about sustaining throughput across the entire loop body by pipelining through the graph. If the graph exposes sufficient parallelism, functional units can remain active every cycle without repeatedly reconstructing dependency information.
 
 Conceptually:
@@ -51,8 +48,7 @@ A significant portion of CPU and GPU microarchitecture exists to support instruc
 
 In the interview, this overhead is explicitly contrasted with the dataflow approach:
 
-> "We don't have an instruction fetch unit. We don't have an instruction cache. We don't need all of that." :contentReference[oaicite:4]{index=4}
-
+> "We don't have an instruction fetch unit. We don't have an instruction cache. We don't need all of that."
 Eliminating these components does more than simplify the pipeline. It reallocates silicon area and power budget toward arithmetic units, memory bandwidth, and concurrency mechanisms. The potential result is improved energy efficiency and higher sustained utilization—particularly for workloads with rich dependency structures, such as HPC kernels and certain AI computations.
 
 ## The Hardware–Software Boundary
