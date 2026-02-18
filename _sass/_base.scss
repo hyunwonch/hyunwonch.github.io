@@ -799,6 +799,8 @@ footer.sticky-bottom {
 
     .caption {
       font-size: 0.85rem;
+      line-height: 1.4;
+      min-height: calc(2 * 0.85rem * 1.4);
       text-align: center;
       padding: 0.75rem;
       margin: 0;
