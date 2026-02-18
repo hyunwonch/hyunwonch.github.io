@@ -10,7 +10,7 @@ related_posts: false
 
 ## Rethinking Execution: From Instruction Streams to Dataflow Graphs
 
-In a recent YouTube interview titled *"Ilan Tayari, VP of Architecture, NextSilicon | Ian Interviews #48"*, a fundamental architectural question was revisited: why do we compile programs into graphs, only to execute them as serialized instruction streams?
+In a recent YouTube interview titled *"Ilan Tayari, VP of Architecture, NextSilicon &#124; Ian Interviews #48"*, a fundamental architectural question was revisited: why do we compile programs into graphs, only to execute them as serialized instruction streams?
 
 The discussion centers on NextSilicon's non–Von Neumann, dataflow-based architecture. What makes the conversation particularly compelling is not just the claim of higher performance, but the structural critique of how modern CPUs and GPUs execute code.
 
