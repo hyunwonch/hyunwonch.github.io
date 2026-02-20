@@ -2,90 +2,62 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What This Is
+## Project Overview
 
-Academic portfolio website for Hyunwon Chung (PhD student, University of Michigan) built on the **al-folio** Jekyll theme. Hosted on GitHub Pages at hyunwonch.github.io.
+Personal academic website for Hyunwon Chung (PhD student, University of Michigan) built with Jekyll using the **al-folio** theme. Deployed to GitHub Pages at `https://hyunwonch.github.io`.
 
-## Build & Serve Commands
+## Build & Development Commands
 
-**Docker (recommended):**
+**Local development with Docker (recommended):**
 ```bash
 docker compose up
-# Site at http://localhost:8080, livereload on port 35729
 ```
+Serves at `http://localhost:8080` with live reload on port 35729.
 
-**Local Ruby:**
+**Local development without Docker:**
 ```bash
 bundle install
 bundle exec jekyll serve --lsi
-# Site at http://localhost:4000
 ```
+Serves at `http://localhost:4000`.
 
-**Production build (matches CI):**
+**Production build:**
 ```bash
-export JEKYLL_ENV=production
-bundle exec jekyll build --lsi
-purgecss -c purgecss.config.js
+JEKYLL_ENV=production bundle exec jekyll build --lsi
 ```
 
-## CI/CD
+## Deployment
 
-GitHub Actions (`.github/workflows/deploy.yml`) deploys on push to main/master:
-- Ruby 3.2.2, installs jupyter + mermaid.cli + purgecss
-- Builds with `jekyll build --lsi` in production mode
-- Purges unused CSS, deploys `_site/` to gh-pages branch
+Automated via GitHub Actions (`.github/workflows/deploy.yml`). Pushing to `master` triggers a build and deploy to the `gh-pages` branch. The workflow installs Ruby 3.2.2, builds Jekyll with `--lsi`, runs PurgeCSS, then deploys.
 
 ## Architecture
 
-**Jekyll layout chain:** Pages use front matter to select a layout from `_layouts/` (e.g., `about.html`, `post.html`, `page.html`). Layouts compose partials from `_includes/`. The base is `default.html`.
+This is a Jekyll site based on al-folio. Key directories:
 
-**Key directories:**
-- `_pages/` — Main site pages (about, blog, chips, cv). The about page is the homepage. Projects page exists but is hidden from nav.
-- `_posts/` — Blog posts (Markdown with front matter for tags/categories). Filenames follow `YYYY-MM-DD-slug.md`.
-- `_news/` — News announcements displayed on the about page. Use `inline: true` in front matter for inline content.
-- `_bibliography/papers.bib` — Publications managed via jekyll-scholar (APA style, grouped by year descending)
-- `_data/` — Structured data: `cv.yml`, `coauthors.yml`, `repositories.yml`, `venues.yml`
-- `_sass/` — SCSS partials; `_base.scss` has component styles including chip gallery, `_layout.scss` has body/heading fonts, `_themes.scss` defines light/dark CSS variables, `_variables.scss` has color palette
-- `_plugins/` — Custom Ruby plugins (cache-bust, details tag, external-posts, file-exists, BibTeX keyword filter)
-- `assets/json/resume.json` — JSON Resume format data, loaded via jekyll-get-json
+- **`_config.yml`** — Central configuration: site metadata, plugin settings, scholar config, feature flags. Most site-wide changes start here.
+- **`_pages/`** — Top-level pages (about, blog, cv, projects). These are Markdown files with YAML front matter.
+- **`_layouts/`** — HTML layout templates (about, post, distill, cv, etc.). Pages reference these via `layout:` in front matter.
+- **`_includes/`** — Reusable HTML partials (header, footer, CV components in `cv/`, resume components in `resume/`).
+- **`_bibliography/papers.bib`** — BibTeX file for publications. Processed by `jekyll-scholar` plugin with APA style, grouped by year descending. Author highlight is configured for "Chung, Hyunwon".
+- **`_data/`** — YAML data files: `cv.yml` (CV structure), `repositories.yml` (GitHub repos to display), `venues.yml`, `coauthors.yml`.
+- **`assets/json/resume.json`** — JSON Resume data loaded at build time via `jekyll-get-json` plugin.
+- **`_news/`** — Announcement items displayed on the about page.
+- **`_posts/`** — Blog posts. Permalink pattern: `/blog/:year/:title/`.
+- **`_plugins/`** — Custom Ruby plugins (cache busting, external posts, file existence checks).
+- **`_sass/`** — Sass stylesheets for theming and layout customization.
+- **`assets/`** — Static files (CSS, JS, images, fonts, PDFs).
 
-**CSS framework:** Bootstrap 4 (MDB 4.20.0) with SCSS. Entry point is `assets/css/main.scss`. Light/dark mode theming uses CSS custom properties toggled at runtime.
+## Key Configuration Details
 
-**Collections:** `news` and `projects` are Jekyll collections defined in `_config.yml`.
+- **Feature flags** in `_config.yml` control dark mode, math (MathJax), masonry layout, medium zoom, progress bar, and project categories — all toggled via `enable_*` booleans.
+- **Collections**: `news` and `projects` are defined as Jekyll collections with their own output paths.
+- **Responsive images**: ImageMagick generates WebP variants at 480/800/1400px widths. Requires `convert` on PATH.
+- **Blog tags/categories**: `display_tags` and `display_categories` in `_config.yml` control what appears on the blog front page.
+- **Scholar configuration**: `max_author_limit: 3`, publication badges (Altmetric, Dimensions), BibTeX filters for LaTeX/smallcaps/superscript.
 
-## Navbar
+## Content Editing Patterns
 
-Order is controlled by `nav_order` in each page's front matter. Current order: about (homepage, no nav_order), chips (1), blog (2), cv (5). Projects is disabled (`nav: false`).
-
-## Fonts
-
-- **Body text:** `Source Serif 4` (serif) — loaded via Google Fonts in `_includes/head.html`
-- **Headings/UI:** `Work Sans` (sans-serif)
-- Bootstrap/MDB vendor CSS defaults to Roboto, so font overrides in `_sass/_layout.scss` use `!important` to take precedence. Common elements use `font-family: inherit !important` to follow the body font.
-
-## CSS Specificity Gotchas
-
-- Bootstrap/MDB set `font-family: Roboto` on many elements directly. Any font changes must use `!important` in `_layout.scss` to override.
-- The global `.caption` class in `_base.scss` (line ~127) adds `margin-bottom: 1.5rem`. Component-specific `.caption` styles (e.g., in `.chip-card`) must use `!important` on margin/padding to override.
-
-## Blog Posts
-
-- Front matter: `layout: post`, `title`, `date`, `description`, `tags`, `categories`, `related_posts`
-- Categories: `technical`, `code`, `thoughts`
-- Tags: `computer architecture`, `dataflow`, `VLSI`, `circuit`, `AI`
-- Liquid template engine processes all Markdown files — pipe characters `|` in content must be escaped as `&#124;`
-- Always leave a blank line after blockquotes (`>`) or the next paragraph gets merged into the quote
-
-## Chips Gallery
-
-- Page: `_pages/chips.md` with CSS Grid layout (3 columns)
-- Styles in `_sass/_base.scss` under `.chip-gallery`
-- Captions use fixed `min-height` with flexbox centering to ensure equal height across cards
-- Images are included via `{% include figure.html %}`
-
-## Conventions
-
-- Scholar config highlights papers by author last name `Chung`, first name `Hyunwon`
-- External links open in new tab with `rel="external nofollow noopener"`
-- ImageMagick generates responsive WebP images at 480/800/1400px widths from `assets/img/`
-- News dates display as month and year only (format: `%b %Y`)
+- **Adding a publication**: Add BibTeX entry to `_bibliography/papers.bib`. Use `preview:` key for thumbnails, `selected: true` for featured publications.
+- **Adding a news item**: Create a new `.md` file in `_news/` with date in filename.
+- **Adding a blog post**: Create a new `.md` file in `_posts/` following `YYYY-MM-DD-title.md` naming.
+- **Updating CV**: Edit `_data/cv.yml` for the structured CV page, or `assets/json/resume.json` for the JSON Resume format.
