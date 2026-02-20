@@ -4,40 +4,62 @@ layout: default
 
 <!-- about.html -->
       <div class="post">
-        <header class="post-header">
-          <h1 class="post-title">
-            {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-          </h1>
-          <p class="desc">{{ page.subtitle }}</p>
-        </header>
 
         <article>
           {% if page.profile -%}
-          <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}">
+          <div class="profile-masthead">
             {%- if page.profile.image %}
+            <div class="profile-photo">
               {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
+              {%- assign profile_image_class = "img-fluid z-depth-1" -%}
 
-              {% if page.profile.image_circular %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
-              {% else %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded" -%}
-              {% endif %}
+              {% capture sizes %}(min-width: {{site.max_width}}) 180px, 180px{% endcapture %}
 
-              {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px) 30vw, 95vw"{% endcapture %}
-              
               {% include figure.html
                 path = profile_image_path
                 class = profile_image_class
                 sizes = sizes
                 alt = page.profile.image
-                cache_bust = true 
+                cache_bust = true
               %}
-            {% endif -%}
-            {%- if page.profile.more_info %}
-            <div class="more-info">
-              {{ page.profile.more_info }}
             </div>
-            {%- endif %}
+            {% endif -%}
+
+            <div class="profile-info">
+              <h1>
+                {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
+              </h1>
+              {% if page.subtitle %}<p class="role">{{ page.subtitle }}</p>{% endif %}
+
+              {%- if page.profile.more_info %}
+              <div class="more-info">
+                {{ page.profile.more_info }}
+              </div>
+              {%- endif %}
+
+              {%- if page.social %}
+              <p class="contact-text">
+                {%- if site.email %}
+                <a href="mailto:{{ site.email | encode_email }}">Email</a>
+                {%- endif %}
+                {%- if site.scholar_userid %}
+                · <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}">Google Scholar</a>
+                {%- endif %}
+                {%- if site.linkedin_username %}
+                · <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">LinkedIn</a>
+                {%- endif %}
+                {%- if site.github_username %}
+                · <a href="https://github.com/{{ site.github_username }}">GitHub</a>
+                {%- endif %}
+                {%- if site.x_username %}
+                · <a href="https://twitter.com/{{ site.x_username }}">X</a>
+                {%- endif %}
+                {%- if site.orcid_id %}
+                · <a href="https://orcid.org/{{ site.orcid_id }}">ORCID</a>
+                {%- endif %}
+              </p>
+              {%- endif %}
+            </div>
           </div>
           {%- endif %}
 
@@ -45,37 +67,32 @@ layout: default
             {{ content }}
           </div>
 
+          <hr style="border-top: 1px solid var(--global-divider-color); margin: 1.5rem 0;">
+
           <!-- News -->
           {% if page.news and site.announcements.enabled -%}
+          <div class="section">
             <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">news</a></h2>
             {%- include news.html limit=true %}
+          </div>
           {%- endif %}
 
           <!-- Latest posts -->
           {% if page.latest_posts -%}
+          <div class="section">
             <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
             {%- include latest_posts.html %}
+          </div>
           {%- endif %}
 
           <!-- Selected papers -->
           {% if page.selected_papers -%}
+          <div class="section">
             <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">selected publications</a></h2>
             {%- include selected_papers.html %}
+          </div>
           {%- endif %}
 
-          <!-- Social -->
-          {%- if page.social %}
-            <div class="social">
-              <div class="contact-icons">
-                {% include social.html %}
-              </div>
-
-              <div class="contact-note">
-                {{ site.contact_note }}
-              </div>
-
-            </div>
-          {%- endif %}
         </article>
 
 </div>
