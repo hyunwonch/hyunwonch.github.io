@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Circuit Design · Computer Architecture
+subtitle: Efficient AI · Reconfigurable Architecture · VLSI
 
 profile:
   align: left
@@ -15,15 +15,15 @@ profile:
 
 news: true  # includes a list of news items
 latest_posts: false  # includes a list of the newest posts
-selected_papers: false # includes a list of papers marked as "selected={true}"
+selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
 Hello! My name is Hyunwon Chung, and I am a PhD student at the University of Michigan. I am supervised by Professors [David Blaauw](https://blaauw.engin.umich.edu/) and [Hun-Seok Kim](https://kim.engin.umich.edu/).
 
-My research is primarily focused on reconfigurable architectures, with a interest in their applications across diverse fields such as communication systems and machine learning. My current work involves exploring and developing `dataflow architectures` on reconfigurable hardware to achieve high performance while maintaining efficient resource utilization.
+My research interests span `reconfigurable architectures` and `dataflow processors` for wireless communication and machine learning. I have taped out multiple chips across GF 12nm and TSMC 28nm processes — including heterogeneous SoCs for beyond-5G optical communication and streaming processors for advanced spectrum sensing.
 
-This area of study is particularly fascinating to me, especially in applications with significant irregularity and a high demand for independent parallel tasks. By leveraging the flexibility of hardware, my goal is to develop architectures that efficiently exploit dataflow to minimize hardware overhead while achieving high throughput. This research has the potential to transform the way we design hardware and execute computational tasks across various domains.
+More recently, my work has focused on `efficient hardware for large language models`. I design hardware architectures tailored for approximation techniques in billion-parameter LLMs, develop performance and energy models to analyze the hardware impact of approximation algorithms, and perform architecture-level design space exploration to identify efficient accelerator configurations for approximated LLM workloads.
 
 <!-- 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
