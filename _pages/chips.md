@@ -17,11 +17,15 @@ nav_order: 1
     <div class="caption">Fully Configurable Quad-Mode FEC Decoder</div>
   </div>
   <div class="chip-card">
-    {% include figure.html path="assets/img/Prowess.png" title="Prowess" class="img-fluid" %}
-    <div class="caption">Streaming Processor for Advanced Spectrum Sensing</div>
+    {% include figure.html path="assets/img/cochon.png" title="COCHON" class="img-fluid" %}
+    <div class="caption">Coming Soon</div>
   </div>
   <div class="chip-card">
-    {% include figure.html path="assets/img/coming_soon.png" title="Coming Soon" class="img-fluid" %}
-    <div class="caption">Coming Soon</div>
+    {% include figure.html path="assets/img/light sensor.png" title="Light Sensor" class="img-fluid" %}
+    <div class="caption">Self-Zero-Biased Light Sensor</div>
+  </div>
+  <div class="chip-card">
+    {% include figure.html path="assets/img/Prowess.png" title="Prowess" class="img-fluid" %}
+    <div class="caption">Streaming Processor for Advanced Spectrum Sensing</div>
   </div>
 </div>
