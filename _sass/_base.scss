@@ -263,18 +263,18 @@ blockquote {
 
 @media (max-width: 640px) {
   .profile-masthead {
-    grid-template-columns: 1fr;
+    display: block;
     padding: 24px 0 20px;
 
     .profile-photo {
-      grid-row: 1;
-      grid-column: 1;
       width: 120px;
+      margin-bottom: 16px;
     }
 
     .profile-info {
-      grid-row: 2;
-      grid-column: 1;
+      h1 {
+        font-size: 1.9rem;
+      }
     }
   }
 }
