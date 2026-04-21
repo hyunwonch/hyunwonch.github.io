@@ -253,7 +253,14 @@ blockquote {
   }
 }
 
-// Responsive: single column on mobile
+// Responsive: narrower photo on tablets, single column on mobile.
+// Order matters — the narrower query must come last so it wins the cascade.
+@media (max-width: 860px) {
+  .profile-masthead {
+    grid-template-columns: 130px 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .profile-masthead {
     grid-template-columns: 1fr;
@@ -266,12 +273,6 @@ blockquote {
     .profile-info {
       grid-column: 1;
     }
-  }
-}
-
-@media (max-width: 860px) {
-  .profile-masthead {
-    grid-template-columns: 130px 1fr;
   }
 }
 
