@@ -264,13 +264,16 @@ blockquote {
 @media (max-width: 640px) {
   .profile-masthead {
     grid-template-columns: 1fr;
+    padding: 24px 0 20px;
 
     .profile-photo {
+      grid-row: 1;
       grid-column: 1;
       width: 120px;
     }
 
     .profile-info {
+      grid-row: 2;
       grid-column: 1;
     }
   }
