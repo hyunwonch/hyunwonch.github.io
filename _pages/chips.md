@@ -17,8 +17,8 @@ nav_order: 1
     <div class="caption">Fully Configurable Quad-Mode FEC Decoder</div>
   </div>
   <div class="chip-card">
-    {% include figure.html path="assets/img/cochon.png" title="COCHON" class="img-fluid" %}
-    <div class="caption">COCHON: A Configurable Coherent Heterogeneous Baseband SoC for High-Speed Optical Communication Networks</div>
+    {% include figure.html path="assets/img/cochon.png" title="Coherent Baseband SoC" class="img-fluid" %}
+    <div class="caption">A Configurable Coherent Heterogeneous Baseband SoC for High-Speed Optical Communication Networks</div>
   </div>
   <div class="chip-card">
     {% include figure.html path="assets/img/light sensor.png" title="Light Sensor" class="img-fluid" %}
