@@ -16,3 +16,8 @@
     cronitor('config', { clientKey: '{{site.cronitor_analytics}}' });
   </script>
 {%- endif -%}
+{%- if site.enable_goatcounter -%}
+  <!-- GoatCounter -->
+  <script data-goatcounter="https://{{ site.goatcounter_code }}.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+{%- endif -%}
