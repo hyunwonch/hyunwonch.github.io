@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260">
+<rect width="100%" height="100%" fill="#0a0f1e"/>
+<rect x="18" y="18" width="1164" height="224" rx="14" fill="#131c38" stroke="#60a5fa" stroke-width="2"/>
+<text x="44" y="68" fill="#e2e8f0" font-size="38" font-family="Arial" font-weight="bold">AWS Trainium3 (Trn3 generation)</text>
+<text x="50" y="112" fill="#cbd5e1" font-size="28" font-family="Arial">• 3nm AI chip generation</text>
+<text x="50" y="146" fill="#cbd5e1" font-size="28" font-family="Arial">• Up to 2.52 PFLOPS FP8 per chip (AWS stated)</text>
+<text x="50" y="180" fill="#cbd5e1" font-size="28" font-family="Arial">• HBM3e 144GB/chip, 4.9TB/s per chip</text>
+<text x="50" y="214" fill="#cbd5e1" font-size="28" font-family="Arial">• UltraServer scale-up to 144 chips</text>
+</svg>
