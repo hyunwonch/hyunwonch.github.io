@@ -13,6 +13,18 @@ mermaid:
   zoomable: false
 ---
 
+<style>
+  pre.mermaid {
+    text-align: center;
+    background: transparent;
+    border: none;
+  }
+  pre.mermaid svg {
+    display: inline-block;
+    margin: 0 auto;
+  }
+</style>
+
 Attention is the core operation of the Transformer, and it is also its main scaling bottleneck. Almost every architectural change in large language models over the past decade — MQA, GQA, sliding windows, MLA, sparse attention, and linear attention — exists to fight the same two enemies: the **quadratic compute cost** of attention over sequence length, and the **KV cache** that dominates memory and bandwidth during inference.
 
 This post walks through that evolution in order, from the original scaled dot-product attention (2017) to Kimi Delta Attention in Kimi K3 (2026), and ends with a table of which model uses which mechanism.
@@ -110,31 +122,6 @@ In the diagram below, solid arrows are projections ($$X$$ times a weight matrix 
 
 ```mermaid
 graph BT
-    subgraph MQA["MQA — 4 query projections, 1 shared W_K / W_V"]
-        direction BT
-        XC["X"] -->|"W_Q1"| C1["Q1"]
-        XC -->|"W_Q2"| C2["Q2"]
-        XC -->|"W_Q3"| C3["Q3"]
-        XC -->|"W_Q4"| C4["Q4"]
-        XC -->|"W_K, W_V"| CK1["K, V — 1 head cached"]
-        C1 -.-> CK1
-        C2 -.-> CK1
-        C3 -.-> CK1
-        C4 -.-> CK1
-    end
-    subgraph GQA["GQA — 4 query projections, 1 W_K / W_V per group"]
-        direction BT
-        XB["X"] -->|"W_Q1"| B1["Q1"]
-        XB -->|"W_Q2"| B2["Q2"]
-        XB -->|"W_Q3"| B3["Q3"]
-        XB -->|"W_Q4"| B4["Q4"]
-        XB -->|"W_KA, W_VA"| BK1["K_A, V_A"]
-        XB -->|"W_KB, W_VB"| BK2["K_B, V_B"]
-        B1 -.-> BK1
-        B2 -.-> BK1
-        B3 -.-> BK2
-        B4 -.-> BK2
-    end
     subgraph MHA["MHA — every head has its own W_Q, W_K, W_V"]
         direction BT
         XA["X"] -->|"W_Q1"| A1["Q1"]
@@ -149,6 +136,39 @@ graph BT
         A2 -.-> AK2
         A3 -.-> AK3
         A4 -.-> AK4
+    end
+```
+
+```mermaid
+graph BT
+    subgraph GQA["GQA — 4 query projections, 1 W_K / W_V per group"]
+        direction BT
+        XB["X"] -->|"W_Q1"| B1["Q1"]
+        XB -->|"W_Q2"| B2["Q2"]
+        XB -->|"W_Q3"| B3["Q3"]
+        XB -->|"W_Q4"| B4["Q4"]
+        XB -->|"W_KA, W_VA"| BK1["K_A, V_A"]
+        XB -->|"W_KB, W_VB"| BK2["K_B, V_B"]
+        B1 -.-> BK1
+        B2 -.-> BK1
+        B3 -.-> BK2
+        B4 -.-> BK2
+    end
+```
+
+```mermaid
+graph BT
+    subgraph MQA["MQA — 4 query projections, 1 shared W_K / W_V"]
+        direction BT
+        XC["X"] -->|"W_Q1"| C1["Q1"]
+        XC -->|"W_Q2"| C2["Q2"]
+        XC -->|"W_Q3"| C3["Q3"]
+        XC -->|"W_Q4"| C4["Q4"]
+        XC -->|"W_K, W_V"| CK1["K, V — 1 head cached"]
+        C1 -.-> CK1
+        C2 -.-> CK1
+        C3 -.-> CK1
+        C4 -.-> CK1
     end
 ```
 
