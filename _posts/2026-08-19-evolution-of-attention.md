@@ -33,6 +33,7 @@ Attention is the core operation of the Transformer, and it is also its main scal
 This post walks through that evolution in order, from the original scaled dot-product attention (2017) to Kimi Delta Attention in Kimi K3 (2026), and ends with a table of which model uses which mechanism.
 
 ```mermaid
+%%{init: {'timeline': {'useMaxWidth': false}}}%%
 timeline
     title A decade of attention mechanisms
     2017 : Scaled dot-product & Multi-Head Attention (Transformer)
@@ -61,6 +62,7 @@ $$
 Note that $$Q$$, $$K$$, and $$V$$ are not the input itself — they are **learned projections** of it. The input hidden states $$X$$ are multiplied by three weight matrices $$W^Q$$, $$W^K$$, $$W^V$$ to produce queries ("what am I looking for?"), keys ("what do I contain?"), and values ("what do I hand over?"):
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     X["Input hidden states X<br>(n tokens × d_model)"] -->|"× W_Q"| Q["Q — queries<br>(n × d_k)"]
     X -->|"× W_K"| K["K — keys<br>(n × d_k)"]
@@ -87,6 +89,7 @@ $$
 Each head can specialize — one tracks syntax, another tracks long-range coreference, and so on. Every head $$i$$ carries its **own** projection triple $$W_i^Q, W_i^K, W_i^V$$, and a final matrix $$W^O$$ mixes the concatenated heads back into the model dimension:
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     X["Input X"] -->|"W_Q1, W_K1, W_V1"| H1["Head 1<br>Attention(Q1, K1, V1)"]
     X -->|"W_Q2, W_K2, W_V2"| H2["Head 2<br>Attention(Q2, K2, V2)"]
@@ -124,6 +127,7 @@ The cost is quality. All heads are forced to look through the same key/value len
 In the diagram below, solid arrows are projections ($$X$$ times a weight matrix produces a Q or K/V head) and dotted arrows show which K/V head each query head attends with. Only the K/V nodes end up in the cache — the query heads are recomputed every step and never stored:
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     subgraph MHA["MHA — every head has its own W_Q, W_K, W_V"]
         direction BT
@@ -143,6 +147,7 @@ graph BT
 ```
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     subgraph GQA["GQA — 4 query projections, 1 W_K / W_V per group"]
         direction BT
@@ -160,6 +165,7 @@ graph BT
 ```
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     subgraph MQA["MQA — 4 query projections, 1 shared W_K / W_V"]
         direction BT
@@ -204,6 +210,7 @@ A parallel line of work attacks the $$O(n^2)$$ term itself by not attending to e
 GQA reduces the cache by deleting heads. **MLA**, introduced in DeepSeek-V2, reduces it by **compressing** them. Instead of caching full K and V per head, the hidden state is projected down into one small shared latent vector $$c^{KV}_t$$ (512 dims in DeepSeek-V2/V3, versus 32K+ dims of full MHA cache), and per-head K and V are reconstructed by up-projection when needed. A small decoupled component carries RoPE positional information alongside the latent.
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     H["Hidden state h_t<br>(7168 dims)"] -->|"W_DKV<br>down-projection"| L[("Latent c_KV (512 dims)<br>the only thing cached")]
     H -->|"W_KR + RoPE"| R[("k_RoPE (64 dims)<br>cached")]
@@ -245,6 +252,7 @@ Pure linear attention still struggles with exact retrieval, so 2025 models conve
 Kimi K3 itself is a 2.8T-parameter MoE with a 1M-token context window. Its attention stack alternates **three KDA layers for every one Gated MLA (full attention) layer**, and adds **Attention Residuals (AttnRes)** — residual paths on the attention outputs that help information flow through very deep stacks. The linear layers carry no KV cache, so the hybrid cuts KV memory by roughly **75%** and reaches up to **~6× faster decoding at 1M-token context** compared with a full-attention baseline.
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     X["Token stream"] --> B1["KDA layer 1<br>linear · no KV cache"]
     B1 --> B2["KDA layer 2<br>linear · no KV cache"]
@@ -256,6 +264,7 @@ graph BT
 The overall arc is easy to state: MQA/GQA shrank the cache by **sharing** it, MLA by **compressing** it, sparse attention by **skipping** most of it, and linear attention by **replacing** it with a fixed-size state. Kimi K3 is the first frontier-scale model to bet on the last option as the default, keeping just enough full attention around for exact recall.
 
 ```mermaid
+%%{init: {'flowchart': {'useMaxWidth': false}}}%%
 graph BT
     SDPA["Scaled dot-product<br>attention (2017)"] --> MHA["MHA (2017)"]
     MHA --> MQA["MQA (2019)<br>share 1 KV head"]
