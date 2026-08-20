@@ -223,13 +223,11 @@ Kimi K3 itself is a 2.8T-parameter MoE with a 1M-token context window. Its atten
 
 ```mermaid
 graph BT
-    X[Token stream] --> B1
-    subgraph BLOCK["Kimi K3 repeating block (3 : 1 hybrid)"]
-        B1["KDA layer — linear, O(1) state, no KV cache"] --> B2["KDA layer — linear, O(1) state, no KV cache"]
-        B2 --> B3["KDA layer — linear, O(1) state, no KV cache"]
-        B3 --> B4["Gated MLA layer — full attention, compressed latent KV cache"]
-    end
-    B4 -->|"+ AttnRes (attention residual)"| Y[Next block × N]
+    X["Token stream"] --> B1["KDA layer 1<br>linear · no KV cache"]
+    B1 --> B2["KDA layer 2<br>linear · no KV cache"]
+    B2 --> B3["KDA layer 3<br>linear · no KV cache"]
+    B3 --> B4["Gated MLA layer<br>full attention · latent KV cache"]
+    B4 -->|"+ AttnRes<br>(attention residual)"| Y["next block — repeated × N"]
 ```
 
 The overall arc is easy to state: MQA/GQA shrank the cache by **sharing** it, MLA by **compressing** it, sparse attention by **skipping** most of it, and linear attention by **replacing** it with a fixed-size state. Kimi K3 is the first frontier-scale model to bet on the last option as the default, keeping just enough full attention around for exact recall.
