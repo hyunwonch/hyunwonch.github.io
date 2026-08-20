@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-A [paper](https://ieeexplore.ieee.org/document/11424013) I co-authored was accepted and published in IEEE Transactions on Circuits and Systems I (TCAS-I)!
+[Paper](https://ieeexplore.ieee.org/document/11424013) I co-authored was accepted and published in IEEE Transactions on Circuits and Systems I (TCAS-I)!
