@@ -10,7 +10,7 @@ toc:
   beginning: true
 mermaid:
   enabled: true
-  zoomable: true
+  zoomable: false
 ---
 
 Attention is the core operation of the Transformer, and it is also its main scaling bottleneck. Almost every architectural change in large language models over the past decade — MQA, GQA, sliding windows, MLA, sparse attention, and linear attention — exists to fight the same two enemies: the **quadratic compute cost** of attention over sequence length, and the **KV cache** that dominates memory and bandwidth during inference.
