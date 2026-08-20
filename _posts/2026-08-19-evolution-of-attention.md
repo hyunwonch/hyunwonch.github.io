@@ -18,10 +18,13 @@ mermaid:
     text-align: center;
     background: transparent;
     border: none;
+    overflow: visible;
   }
   pre.mermaid svg {
     display: inline-block;
     margin: 0 auto;
+    max-width: 100% !important;
+    height: auto !important;
   }
 </style>
 
