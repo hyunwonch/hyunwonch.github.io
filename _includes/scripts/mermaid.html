@@ -20,22 +20,53 @@
       backup.after(mermaid);
     });
 
-    mermaid.initialize({ theme: theme })
+    mermaid.initialize({ theme: theme, startOnLoad: false })
 
-    /* Zoomable mermaid diagrams */
-    if (typeof d3 !== 'undefined') {
-      window.addEventListener('load', function () {
-        var svgs = d3.selectAll(".mermaid svg");
+    /* Mermaid occasionally computes a viewBox before the final text metrics are
+       available. Refit it to the rendered content so labels and arrowheads at
+       the edges are not clipped, then let CSS scale wide diagrams responsively. */
+    function fitMermaidSvg(svg) {
+      const padding = 12;
+
+      try {
+        const bounds = svg.getBBox();
+        if (!bounds.width || !bounds.height) return;
+
+        const width = bounds.width + padding * 2;
+        const height = bounds.height + padding * 2;
+        svg.setAttribute('viewBox', `${bounds.x - padding} ${bounds.y - padding} ${width} ${height}`);
+        svg.setAttribute('width', width);
+        svg.setAttribute('height', height);
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      } catch (error) {
+        console.warn('Could not fit Mermaid diagram to its contents.', error);
+      }
+    }
+
+    async function renderMermaidDiagrams() {
+      await mermaid.run({ querySelector: '.mermaid' });
+
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
+      document.querySelectorAll('.mermaid svg').forEach(fitMermaidSvg);
+
+      /* Zoomable mermaid diagrams */
+      if (typeof d3 !== 'undefined') {
+        var svgs = d3.selectAll('.mermaid svg');
         svgs.each(function () {
           var svg = d3.select(this);
-          svg.html("<g>" + svg.html() + "</g>");
-          var inner = svg.select("g");
-          var zoom = d3.zoom().on("zoom", function (event) {
-            inner.attr("transform", event.transform);
+          svg.html('<g>' + svg.html() + '</g>');
+          var inner = svg.select('g');
+          var zoom = d3.zoom().on('zoom', function (event) {
+            inner.attr('transform', event.transform);
           });
           svg.call(zoom);
         });
-      });
+      }
     }
+
+    renderMermaidDiagrams();
   </script>
   {% endif %}

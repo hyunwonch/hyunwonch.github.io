@@ -15,16 +15,26 @@ mermaid:
 
 <style>
   pre.mermaid {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
     text-align: center;
     background: transparent;
     border: none;
+    padding: 0.75rem;
     overflow: visible;
   }
   pre.mermaid svg {
-    display: inline-block;
+    display: block;
+    flex: 0 1 auto;
     margin: 0 auto;
+    width: auto !important;
+    min-width: 0;
     max-width: 100% !important;
     height: auto !important;
+    overflow: visible !important;
   }
 </style>
 
