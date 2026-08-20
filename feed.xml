@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://hyunwon.blog/feed.xml" rel="self" type="application/atom+xml"/><link href="https://hyunwon.blog/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-08-20T04:00:59+00:00</updated><id>https://hyunwon.blog/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">The Evolution of Attention - From MHA to Kimi K3</title><link href="https://hyunwon.blog/blog/2026/evolution-of-attention/" rel="alternate" type="text/html" title="The Evolution of Attention - From MHA to Kimi K3"/><published>2026-08-19T12:00:00+00:00</published><updated>2026-08-19T12:00:00+00:00</updated><id>https://hyunwon.blog/blog/2026/evolution-of-attention</id><content type="html" xml:base="https://hyunwon.blog/blog/2026/evolution-of-attention/"><![CDATA[<p>Attention is the core operation of the Transformer, and it is also its main scaling bottleneck. Almost every architectural change in large language models over the past decade — MQA, GQA, sliding windows, MLA, sparse attention, and linear attention — exists to fight the same two enemies: the <strong>quadratic compute cost</strong> of attention over sequence length, and the <strong>KV cache</strong> that dominates memory and bandwidth during inference.</p> <p>This post walks through that evolution in order, from the original scaled dot-product attention (2017) to Kimi Delta Attention in Kimi K3 (2026), and ends with a table of which model uses which mechanism.</p> <pre><code class="language-mermaid">timeline
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://hyunwon.blog/feed.xml" rel="self" type="application/atom+xml"/><link href="https://hyunwon.blog/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-08-20T04:11:51+00:00</updated><id>https://hyunwon.blog/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">The Evolution of Attention - From MHA to Kimi K3</title><link href="https://hyunwon.blog/blog/2026/evolution-of-attention/" rel="alternate" type="text/html" title="The Evolution of Attention - From MHA to Kimi K3"/><published>2026-08-19T12:00:00+00:00</published><updated>2026-08-19T12:00:00+00:00</updated><id>https://hyunwon.blog/blog/2026/evolution-of-attention</id><content type="html" xml:base="https://hyunwon.blog/blog/2026/evolution-of-attention/"><![CDATA[<style>pre.mermaid{text-align:center;background:transparent;border:0}pre.mermaid svg{display:inline-block;margin:0 auto}</style> <p>Attention is the core operation of the Transformer, and it is also its main scaling bottleneck. Almost every architectural change in large language models over the past decade — MQA, GQA, sliding windows, MLA, sparse attention, and linear attention — exists to fight the same two enemies: the <strong>quadratic compute cost</strong> of attention over sequence length, and the <strong>KV cache</strong> that dominates memory and bandwidth during inference.</p> <p>This post walks through that evolution in order, from the original scaled dot-product attention (2017) to Kimi Delta Attention in Kimi K3 (2026), and ends with a table of which model uses which mechanism.</p> <pre><code class="language-mermaid">timeline
     title A decade of attention mechanisms
     2017 : Scaled dot-product &amp; Multi-Head Attention (Transformer)
     2019 : Multi-Query Attention (MQA)
@@ -32,31 +32,6 @@
     HH --&gt; C
     C --&gt;|"× W_O"| O["MHA output"]
 </code></pre> <p>Because every head has its own \(W_i^K\) and \(W_i^V\), every head contributes its own K and V vectors to the cache. That is fine for training, but it defines the inference problem that the next decade of designs tries to solve.</p> <h3 id="the-kv-cache-problem">The KV cache problem</h3> <p>During autoregressive decoding, the keys and values of all past tokens are cached so they are not recomputed at every step. The cache size per token is:</p> \[\text{KV bytes/token} = 2 \times n_{\text{layers}} \times n_{\text{kv-heads}} \times d_{\text{head}} \times \text{bytes/param}\] <p>For a Llama-2-7B-shaped MHA model (32 layers, 32 KV heads, head dim 128, FP16) that is about <strong>0.5 MB per token</strong> — roughly <strong>64 GB for a 128K context</strong>, before you store a single model weight. Decoding is memory-bandwidth-bound: every generated token has to stream the whole cache through the GPU. Shrinking the KV cache is therefore the central theme of everything below.</p> <h2 id="3-multi-query-attention-mqa-2019">3. Multi-Query Attention (MQA, 2019)</h2> <p>Noam Shazeer’s <em>Fast Transformer Decoding</em> proposed the bluntest possible fix: keep all \(h\) query heads, but share <strong>one single K/V head</strong> across all of them. The KV cache shrinks by a factor of \(h\) (32× in the example above), and decoding gets dramatically faster.</p> <p>The cost is quality. All heads are forced to look through the same key/value lens, and MQA models show a measurable quality drop and training instability at scale. PaLM and StarCoder shipped with MQA, but it never became the default.</p> <h2 id="4-grouped-query-attention-gqa-2023">4. Grouped-Query Attention (GQA, 2023)</h2> <p><strong>GQA</strong> (Ainslie et al., Google) is the interpolation between the two extremes: divide the \(h\) query heads into \(g\) groups, and give each group one shared K/V head. With \(g = h\) you recover MHA; with \(g = 1\) you recover MQA. In practice a small number of KV heads (typically 8) recovers almost all of MHA’s quality while keeping most of MQA’s memory savings — Llama 3 70B uses 64 query heads and 8 KV heads, an 8× cache reduction.</p> <p>In the diagram below, solid arrows are projections (\(X\) times a weight matrix produces a Q or K/V head) and dotted arrows show which K/V head each query head attends with. Only the K/V nodes end up in the cache — the query heads are recomputed every step and never stored:</p> <pre><code class="language-mermaid">graph BT
-    subgraph MQA["MQA — 4 query projections, 1 shared W_K / W_V"]
-        direction BT
-        XC["X"] --&gt;|"W_Q1"| C1["Q1"]
-        XC --&gt;|"W_Q2"| C2["Q2"]
-        XC --&gt;|"W_Q3"| C3["Q3"]
-        XC --&gt;|"W_Q4"| C4["Q4"]
-        XC --&gt;|"W_K, W_V"| CK1["K, V — 1 head cached"]
-        C1 -.-&gt; CK1
-        C2 -.-&gt; CK1
-        C3 -.-&gt; CK1
-        C4 -.-&gt; CK1
-    end
-    subgraph GQA["GQA — 4 query projections, 1 W_K / W_V per group"]
-        direction BT
-        XB["X"] --&gt;|"W_Q1"| B1["Q1"]
-        XB --&gt;|"W_Q2"| B2["Q2"]
-        XB --&gt;|"W_Q3"| B3["Q3"]
-        XB --&gt;|"W_Q4"| B4["Q4"]
-        XB --&gt;|"W_KA, W_VA"| BK1["K_A, V_A"]
-        XB --&gt;|"W_KB, W_VB"| BK2["K_B, V_B"]
-        B1 -.-&gt; BK1
-        B2 -.-&gt; BK1
-        B3 -.-&gt; BK2
-        B4 -.-&gt; BK2
-    end
     subgraph MHA["MHA — every head has its own W_Q, W_K, W_V"]
         direction BT
         XA["X"] --&gt;|"W_Q1"| A1["Q1"]
@@ -71,6 +46,33 @@
         A2 -.-&gt; AK2
         A3 -.-&gt; AK3
         A4 -.-&gt; AK4
+    end
+</code></pre> <pre><code class="language-mermaid">graph BT
+    subgraph GQA["GQA — 4 query projections, 1 W_K / W_V per group"]
+        direction BT
+        XB["X"] --&gt;|"W_Q1"| B1["Q1"]
+        XB --&gt;|"W_Q2"| B2["Q2"]
+        XB --&gt;|"W_Q3"| B3["Q3"]
+        XB --&gt;|"W_Q4"| B4["Q4"]
+        XB --&gt;|"W_KA, W_VA"| BK1["K_A, V_A"]
+        XB --&gt;|"W_KB, W_VB"| BK2["K_B, V_B"]
+        B1 -.-&gt; BK1
+        B2 -.-&gt; BK1
+        B3 -.-&gt; BK2
+        B4 -.-&gt; BK2
+    end
+</code></pre> <pre><code class="language-mermaid">graph BT
+    subgraph MQA["MQA — 4 query projections, 1 shared W_K / W_V"]
+        direction BT
+        XC["X"] --&gt;|"W_Q1"| C1["Q1"]
+        XC --&gt;|"W_Q2"| C2["Q2"]
+        XC --&gt;|"W_Q3"| C3["Q3"]
+        XC --&gt;|"W_Q4"| C4["Q4"]
+        XC --&gt;|"W_K, W_V"| CK1["K, V — 1 head cached"]
+        C1 -.-&gt; CK1
+        C2 -.-&gt; CK1
+        C3 -.-&gt; CK1
+        C4 -.-&gt; CK1
     end
 </code></pre> <h3 id="gqa-vs-mqa-one-knob-not-two-mechanisms">GQA vs MQA: one knob, not two mechanisms</h3> <p>It is tempting to think of MQA and GQA as different mechanisms, but they differ in exactly one number: the count of K/V heads \(g\). In MQA there is a single \(W^K\)/\(W^V\) pair for the whole layer, so all query heads retrieve information through one shared “view” of the context. In GQA each group of query heads gets its own \(W^K\)/\(W^V\) pair, so the model keeps several distinct views. MHA and MQA are just the two endpoints of the same knob:</p> <table> <thead> <tr> <th style="text-align: center">KV heads \(g\)</th> <th style="text-align: left">Name</th> <th style="text-align: center">Distinct K/V “views”</th> <th style="text-align: center">KV cache vs MHA</th> </tr> </thead> <tbody> <tr> <td style="text-align: center">\(g = h\) (e.g. 32)</td> <td style="text-align: left">MHA</td> <td style="text-align: center">32</td> <td style="text-align: center">1×</td> </tr> <tr> <td style="text-align: center">\(1 &lt; g &lt; h\) (e.g. 8)</td> <td style="text-align: left">GQA</td> <td style="text-align: center">8</td> <td style="text-align: center">4× smaller</td> </tr> <tr> <td style="text-align: center">\(g = 1\)</td> <td style="text-align: left">MQA</td> <td style="text-align: center">1</td> <td style="text-align: center">32× smaller</td> </tr> </tbody> </table> <p>The key empirical finding of the GQA paper is that quality degrades <strong>very non-linearly</strong> along this knob: cutting KV heads from 32 to 8 loses almost nothing, while going from 8 to 1 causes most of MQA’s quality drop. Since 8 KV heads already captures ~80–90% of MQA’s memory savings, the extra compression of full MQA is simply not worth it — which is why MQA (PaLM, StarCoder) was largely abandoned once GQA appeared.</p> <p>A practical bonus: a GQA model does not need to be trained from scratch. The paper showed that an existing MHA checkpoint can be <strong>converted</strong> by mean-pooling each group’s K/V projection matrices into one shared pair, followed by a short “uptraining” run (~5% of the original compute) to recover quality. This is how the first GQA versions of T5 were produced.</p> <p>GQA became the industry default from 2023 to today: Llama 2/3/4, Mistral, Mixtral, Qwen 2/3, Gemma, and GPT-OSS all use it.</p> <h2 id="5-sliding-windows-sinks-and-sparse-attention">5. Sliding Windows, Sinks, and Sparse Attention</h2> <p>A parallel line of work attacks the \(O(n^2)\) term itself by not attending to everything.</p> <ul> <li><strong>Sliding-window (local) attention</strong> — each token attends only to the last \(w\) tokens (Longformer, 2020). Mistral 7B popularized it in production (4K window), and Gemma 2/3 alternate local sliding-window layers with occasional global layers so information can still travel far through depth.</li> <li><strong>Attention sinks</strong> — StreamingLLM observed that softmax attention dumps probability mass on the first tokens; keeping a few “sink” tokens always visible stabilizes windowed attention. GPT-OSS (2025) bakes a learned sink into every attention layer and alternates dense and 128-token sliding-window layers.</li> <li><strong>Trainable sparse attention</strong> — instead of a fixed window, learn which blocks of the context each query should visit. DeepSeek’s <strong>NSA</strong> (Native Sparse Attention, early 2025) and the <strong>DSA</strong> sparse attention deployed in DeepSeek-V3.2 select a small top-\(k\) set of key blocks per query, making long-context prefill and decoding near-linear in practice while remaining trainable end-to-end.</li> </ul> <h2 id="6-multi-head-latent-attention-mla-2024">6. Multi-head Latent Attention (MLA, 2024)</h2> <p>GQA reduces the cache by deleting heads. <strong>MLA</strong>, introduced in DeepSeek-V2, reduces it by <strong>compressing</strong> them. Instead of caching full K and V per head, the hidden state is projected down into one small shared latent vector \(c^{KV}_t\) (512 dims in DeepSeek-V2/V3, versus 32K+ dims of full MHA cache), and per-head K and V are reconstructed by up-projection when needed. A small decoupled component carries RoPE positional information alongside the latent.</p> <pre><code class="language-mermaid">graph BT
     H["Hidden state h_t&lt;br&gt;(7168 dims)"] --&gt;|"W_DKV&lt;br&gt;down-projection"| L[("Latent c_KV (512 dims)&lt;br&gt;the only thing cached")]
