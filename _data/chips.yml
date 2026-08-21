@@ -1,0 +1,24 @@
+- name: DASH
+  tagline: Heterogeneous Processor for Advanced 5G Application
+  image: assets/img/Dash.png
+  url: /chips/dash/
+
+- name: FEC Decoder
+  tagline: Fully Configurable Quad-Mode FEC Decoder
+  image: assets/img/FEC_Chip.png
+  url: /chips/fec-decoder/
+
+- name: Coherent Baseband SoC
+  tagline: A Configurable Coherent Heterogeneous Baseband SoC for High-Speed Optical Communication Networks
+  image: assets/img/cochon.png
+  url: /chips/coherent-baseband-soc/
+
+- name: Light Sensor
+  tagline: Self-Zero-Biased Light Sensor
+  image: assets/img/light sensor.png
+  url: /chips/light-sensor/
+
+- name: PROWESS
+  tagline: Streaming Processor for Advanced Spectrum Sensing
+  image: assets/img/Prowess.png
+  url: /chips/prowess/

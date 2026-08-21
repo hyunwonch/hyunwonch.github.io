@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+<div class="post chip-detail">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <article>
+    <a class="chip-back-link" href="{{ '/chips/' | relative_url }}">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      All chips
+    </a>
+
+    <div class="chip-detail-hero">
+      {% include figure.html path=page.image title=page.title alt=page.image_alt class="img-fluid" zoomable=true %}
+      {% if page.description %}
+        <p class="chip-detail-summary">{{ page.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="chip-detail-content">
+      <h2>Abstract</h2>
+      {{ content }}
+
+      {% if page.publication %}
+        <section class="chip-publication" aria-labelledby="chip-publication-heading">
+          <h2 id="chip-publication-heading">{{ page.publication.heading | default: 'Publication' }}</h2>
+          <dl>
+            {% if page.publication.status %}
+              <div>
+                <dt>Status</dt>
+                <dd>{{ page.publication.status }}</dd>
+              </div>
+            {% endif %}
+            {% if page.publication.paper %}
+              <div>
+                <dt>{{ page.publication.paper_label | default: 'Paper' }}</dt>
+                <dd>
+                  {% if page.publication.url %}<a href="{{ page.publication.url }}">{% endif %}
+                    {{ page.publication.paper }}
+                  {% if page.publication.url %}</a>{% endif %}
+                </dd>
+              </div>
+            {% endif %}
+            {% if page.publication.venue %}
+              <div>
+                <dt>{{ page.publication.venue_label | default: 'Published in' }}</dt>
+                <dd>{{ page.publication.venue }}</dd>
+              </div>
+            {% endif %}
+            {% if page.publication.date %}
+              <div>
+                <dt>{{ page.publication.date_label | default: 'Published' }}</dt>
+                <dd>{{ page.publication.date }}</dd>
+              </div>
+            {% endif %}
+            {% if page.publication.doi %}
+              <div>
+                <dt>DOI</dt>
+                <dd><a href="https://doi.org/{{ page.publication.doi }}">{{ page.publication.doi }}</a></dd>
+              </div>
+            {% endif %}
+          </dl>
+          {% if page.publication.note %}
+            <p class="chip-publication-note">{{ page.publication.note }}</p>
+          {% endif %}
+        </section>
+      {% endif %}
+    </div>
+  </article>
+</div>
