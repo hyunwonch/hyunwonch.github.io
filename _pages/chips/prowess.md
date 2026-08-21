@@ -15,4 +15,4 @@ publication:
   note: Nominated for Best Student Paper.
 ---
 
-PROWESS is a rapidly programmable streaming processor for spectrum sensing in dynamic RF environments. Its 7x11 array of 77 processing elements is tightly coupled to a lightweight hardware kernel launcher, allowing the array to be reconfigured in 10 ns without host-CPU intervention. The processor can analyze multiple heterogeneous signals and channels under rapidly changing conditions while achieving a compute density of 248.5 GFLOPS/mm^2 and an energy efficiency of 1.67 TFLOPS/W.
+This work presents a fast-programmable streaming processor for spectrum sensing in dynamic RF environments. To respond to rapidly changing RF channels, the 2D array of 77 processing elements is tightly integrated with a light-weight kernel launcher that achieves 10 ns array reconfiguration without host-CPU intervention. The processor is able to analyze multiple heterogeneous signals/channels in highly dynamic conditions and achieves a compute density of 248.5 GFLOPS /mm2 and an energy efficiency of 1.67 TFLOPS/W.
