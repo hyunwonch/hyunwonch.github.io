@@ -14,4 +14,4 @@ publication:
   url: https://ieeexplore.ieee.org/document/11577495
 ---
 
-This single-chip, self-zero-biased photovoltaic light sensor is designed for seawater analysis aboard a wireless underwater vehicle. It converts irradiance linearly to frequency, requires only single-point calibration, and scales its power consumption with incident light. Implemented in 180 nm CMOS, the sensor demonstrates a measured 56,500x dynamic range together with temperature-robust operation.
+We present a single chip, self-zero-biased light sensor for sea-water analysis for application in a wireless underwater vehicle. The sensor achieves linear irradiance-to-frequency conversion, single point calibration, and light-proportional power consumption. It has a measured dynamic range of 56,500× with temperature-robust operation in 180 nm CMOS.
