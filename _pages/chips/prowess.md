@@ -7,7 +7,7 @@ image: assets/img/Prowess.png
 image_alt: PROWESS streaming processor chip die photograph
 publication:
   status: Published
-  paper: A 248.5 GFLOPS/mm^2, 1.67 TFLOPS/W Streaming Processor with Hardware-Level Scheduling for Advanced Spectrum Sensing
+  paper: A 248.5 GFLOPS/mm2, 1.67 TFLOPS/W Streaming Processor with Hardware-Level Scheduling for Advanced Spectrum Sensing
   venue: 2026 IEEE/JSAP Symposium on VLSI Technology and Circuits
   date: June 2026
   doi: 10.1109/VLSITechnologyandCir65830.2026.11577321
