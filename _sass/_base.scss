@@ -789,10 +789,6 @@ footer.sticky-bottom {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       text-decoration: none;
       transform: translateY(-2px);
-
-      .chip-card-arrow {
-        transform: translateX(0.2rem);
-      }
     }
 
     &:focus-visible {
@@ -830,18 +826,6 @@ footer.sticky-bottom {
       margin-bottom: 0 !important;
       box-sizing: border-box;
       border-top: 1px solid var(--global-divider-color);
-      position: relative;
-
-      span {
-        padding: 0 1.25rem;
-      }
-
-      .chip-card-arrow {
-        color: var(--global-theme-color);
-        position: absolute;
-        right: 0.75rem;
-        transition: transform 0.2s ease-in-out;
-      }
     }
   }
 }

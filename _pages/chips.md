@@ -11,10 +11,7 @@ nav_order: 1
   {% for chip in site.data.chips %}
     <a class="chip-card" href="{{ chip.url | relative_url }}" aria-label="Learn more about {{ chip.name }}">
       {% include figure.html path=chip.image title=chip.name alt=chip.tagline class="img-fluid" %}
-      <div class="caption">
-        <span>{{ chip.tagline }}</span>
-        <i class="fa-solid fa-arrow-right chip-card-arrow" aria-hidden="true"></i>
-      </div>
+      <div class="caption">{{ chip.tagline }}</div>
     </a>
   {% endfor %}
 </div>
