@@ -68,6 +68,47 @@ layout: default
           {% endif %}
         </section>
       {% endif %}
+
+      {% if page.related_publications %}
+        <section class="chip-publication" aria-labelledby="chip-related-publications-heading">
+          <h2 id="chip-related-publications-heading">Related publications</h2>
+          {% for publication in page.related_publications %}
+            <dl>
+              {% if publication.paper %}
+                <div>
+                  <dt>Paper</dt>
+                  <dd>
+                    {% if publication.url %}<a href="{{ publication.url }}">{% endif %}
+                      {{ publication.paper }}
+                    {% if publication.url %}</a>{% endif %}
+                  </dd>
+                </div>
+              {% endif %}
+              {% if publication.venue %}
+                <div>
+                  <dt>Published in</dt>
+                  <dd>{{ publication.venue }}</dd>
+                </div>
+              {% endif %}
+              {% if publication.date %}
+                <div>
+                  <dt>Published</dt>
+                  <dd>{{ publication.date }}</dd>
+                </div>
+              {% endif %}
+              {% if publication.doi %}
+                <div>
+                  <dt>DOI</dt>
+                  <dd><a href="https://doi.org/{{ publication.doi }}">{{ publication.doi }}</a></dd>
+                </div>
+              {% endif %}
+            </dl>
+            {% if publication.note %}
+              <p class="chip-publication-note">{{ publication.note }}</p>
+            {% endif %}
+          {% endfor %}
+        </section>
+      {% endif %}
     </div>
   </article>
 </div>
