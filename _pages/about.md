@@ -25,5 +25,7 @@ My research interests span `reconfigurable` and `dataflow architecture` for wire
 
 More recently, my work has focused on `efficient hardware for large language models`. I design hardware architectures tailored for approximation techniques in billion-parameter LLMs, develop performance and energy models to analyze the hardware impact of approximation algorithms, and perform architecture-level design space exploration to identify efficient accelerator configurations for approximated LLM workloads.
 
+I am actively seeking Summer 2027 internship opportunities in CPU/GPU/AI processor architecture, as well as VLSI design.
+
 <!--
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
