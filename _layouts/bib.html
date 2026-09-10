@@ -3,7 +3,7 @@
 <!-- _layouts/bib.html -->
       <div class="row">
         {%- if site.enable_publication_thumbnails -%}
-        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
+        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}{% if entry.chip %} with-chip{% endif %}">
         {%- if entry.preview -%}
           {% if entry.preview contains '://' -%}
           <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
@@ -27,6 +27,18 @@
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
         {%- endif -%}
+        {%- if entry.chip %}
+          {%- for chip in site.data.chips -%}
+            {%- if chip.name == entry.chip -%}
+              {%- capture chip_alt -%}{{ chip.name }} chip die photo{%- endcapture %}
+          <div class="chip-photo">
+            <a href="{{ chip.url | relative_url }}" title="{{ chip.name }}: {{ chip.tagline }}">
+              {% include figure.html path=chip.image alt=chip_alt sizes="200px" class="z-depth-1 rounded" %}
+            </a>
+          </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif %}
         </div>
         {%- endif -%}
 
@@ -140,18 +152,6 @@
         <div class="periodical">
           <strong>{{ entry.award | strip }}</strong>
         </div>
-        {%- endif %}
-        {%- if entry.chip %}
-          {%- for chip in site.data.chips -%}
-            {%- if chip.name == entry.chip -%}
-              {%- capture chip_alt -%}{{ chip.name }} chip die photo{%- endcapture %}
-        <div class="chip-photo">
-          <a href="{{ chip.url | relative_url }}" title="{{ chip.name }}: {{ chip.tagline }}">
-            {% include figure.html path=chip.image alt=chip_alt sizes="280px" class="z-depth-1 rounded" %}
-          </a>
-        </div>
-            {%- endif -%}
-          {%- endfor -%}
         {%- endif %}
 
           <!-- Links/Buttons -->
