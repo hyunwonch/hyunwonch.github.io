@@ -1014,6 +1014,12 @@ footer.sticky-bottom {
         font-weight: bolder;
       }
 
+      .title,
+      .author,
+      .periodical {
+        line-height: 1.35;
+      }
+
       .author {
         a {
           border-bottom: 1px dashed var(--global-theme-color);
@@ -1047,8 +1053,8 @@ footer.sticky-bottom {
           border: 1px solid var(--global-text-color);
           padding-left: 1rem;
           padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
+          padding-top: 0.15rem;
+          padding-bottom: 0.15rem;
           margin-left: 0;
 
           &:hover {
@@ -1059,7 +1065,7 @@ footer.sticky-bottom {
       }
 
       .badges {
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.25rem;
         span {
           display: inline-block;
           color: $black-color;
