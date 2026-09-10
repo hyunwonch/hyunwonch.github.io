@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started PhD at the University of Michigan-Ann Arbor with a Department Fellowship ! :sparkles: :smile:
+Started PhD at the University of Michigan-Ann Arbor with <u>Department Fellowship</u> ! :sparkles: :smile:
