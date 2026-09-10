@@ -2,3 +2,26 @@
           <div class="publications">
             {% bibliography -f {{ site.scholar.bibliography }} --group_by none --query @*[selected=true]* %}
           </div>
+
+          <!-- Give every publication entry the same height (tallest wins), re-measured on resize -->
+          <script>
+            (function () {
+              function equalizePublicationHeights() {
+                var items = document.querySelectorAll('.publications ol.bibliography > li');
+                if (items.length < 2) { return; }
+                var max = 0;
+                items.forEach(function (li) { li.style.minHeight = ''; });
+                items.forEach(function (li) {
+                  var h = li.getBoundingClientRect().height;
+                  li.querySelectorAll('div.hidden.open').forEach(function (box) {
+                    h -= box.getBoundingClientRect().height;
+                  });
+                  if (h > max) { max = h; }
+                });
+                items.forEach(function (li) { li.style.minHeight = Math.ceil(max) + 'px'; });
+              }
+              document.addEventListener('DOMContentLoaded', equalizePublicationHeights);
+              window.addEventListener('load', equalizePublicationHeights);
+              window.addEventListener('resize', equalizePublicationHeights);
+            })();
+          </script>
