@@ -141,6 +141,18 @@
           <strong>{{ entry.award | strip }}</strong>
         </div>
         {%- endif %}
+        {%- if entry.chip %}
+          {%- for chip in site.data.chips -%}
+            {%- if chip.name == entry.chip -%}
+              {%- capture chip_alt -%}{{ chip.name }} chip die photo{%- endcapture %}
+        <div class="chip-photo">
+          <a href="{{ chip.url | relative_url }}" title="{{ chip.name }}: {{ chip.tagline }}">
+            {% include figure.html path=chip.image alt=chip_alt sizes="280px" class="z-depth-1 rounded" %}
+          </a>
+        </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif %}
 
           <!-- Links/Buttons -->
           <div class="links">
