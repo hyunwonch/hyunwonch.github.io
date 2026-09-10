@@ -3,7 +3,7 @@
 <!-- _layouts/bib.html -->
       <div class="row">
         {%- if site.enable_publication_thumbnails -%}
-        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}{% if entry.chip %} with-chip{% endif %}">
+        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}{% if entry.chip or entry.photo %} with-photo{% endif %}">
         {%- if entry.preview -%}
           {% if entry.preview contains '://' -%}
           <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
@@ -27,17 +27,34 @@
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
         {%- endif -%}
-        {%- if entry.chip %}
-          {%- for chip in site.data.chips -%}
-            {%- if chip.name == entry.chip -%}
-              {%- capture chip_alt -%}{{ chip.name }} chip die photo{%- endcapture %}
-          <div class="chip-photo">
-            <a href="{{ chip.url | relative_url }}" title="{{ chip.name }}: {{ chip.tagline }}">
-              {% include figure.html path=chip.image alt=chip_alt sizes="200px" class="z-depth-1 rounded" %}
+        {%- if entry.chip or entry.photo %}
+          {%- assign pub_photo_path = nil -%}
+          {%- assign pub_photo_url = nil -%}
+          {%- assign pub_photo_title = nil -%}
+          {%- if entry.chip -%}
+            {%- for chip in site.data.chips -%}
+              {%- if chip.name == entry.chip -%}
+                {%- assign pub_photo_path = chip.image -%}
+                {%- assign pub_photo_url = chip.url | relative_url -%}
+                {%- capture pub_photo_title -%}{{ chip.name }}: {{ chip.tagline }}{%- endcapture -%}
+                {%- capture pub_photo_alt -%}{{ chip.name }} chip die photo{%- endcapture -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- assign pub_photo_path = entry.photo | prepend: 'assets/img/' -%}
+            {%- capture pub_photo_alt -%}Figure from {{ entry.title | strip_html }}{%- endcapture -%}
+          {%- endif -%}
+          {%- if pub_photo_path %}
+          <div class="pub-photo">
+            {%- if pub_photo_url %}
+            <a href="{{ pub_photo_url }}" title="{{ pub_photo_title }}">
+              {% include figure.html path=pub_photo_path alt=pub_photo_alt sizes="200px" class="z-depth-1 rounded" %}
             </a>
+            {%- else %}
+            {% include figure.html path=pub_photo_path alt=pub_photo_alt sizes="200px" class="z-depth-1 rounded" zoomable=true %}
+            {%- endif %}
           </div>
-            {%- endif -%}
-          {%- endfor -%}
+          {%- endif %}
         {%- endif %}
         </div>
         {%- endif -%}
