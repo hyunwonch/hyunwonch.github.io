@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished my 4th tapeout using TSMC 28nm !
+Finished my 4th tapeout using TSMC 28nm

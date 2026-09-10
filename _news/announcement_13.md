@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished my 7th tapeout using DBH 90nm !
+Finished my 7th tapeout using DBH 90nm

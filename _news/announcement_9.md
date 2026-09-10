@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished my 2nd tapeout using GF 12nm !
+Finished my 2nd tapeout using GF 12nm

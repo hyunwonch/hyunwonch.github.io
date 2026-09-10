@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished my 3rd tapeout using TSMC 180nm !
+Finished my 3rd tapeout using TSMC 180nm

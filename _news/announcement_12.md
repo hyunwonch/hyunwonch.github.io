@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished my 6th tapeout using TSMC 22nm !
+Finished my 6th tapeout using TSMC 22nm
