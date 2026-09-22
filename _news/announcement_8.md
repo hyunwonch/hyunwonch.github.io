@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-[Paper](https://ieeexplore.ieee.org/document/11577495) I co-authored was accepted to IEEE Symposium on VLSI Circuits 2026!
+[Our paper](https://ieeexplore.ieee.org/document/11577495) was accepted to IEEE Symposium on VLSI Circuits 2026!

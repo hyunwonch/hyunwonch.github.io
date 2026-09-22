@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-[Paper](https://ieeexplore.ieee.org/document/11577321) I first-authored was accepted to IEEE Symposium on VLSI Circuits 2026! (Best Paper Nominated)
+[Our paper](https://ieeexplore.ieee.org/document/11577321) was accepted to IEEE Symposium on VLSI Circuits 2026! (Best Paper Nominated)

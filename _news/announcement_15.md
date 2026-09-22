@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-[Paper](https://doi.org/10.1109/MDAT.2025.3594311) I co-authored was accepted and published in IEEE Design & Test (D&T)!
+[Our paper](https://doi.org/10.1109/MDAT.2025.3594311) was accepted and published in IEEE Design & Test (D&T)!

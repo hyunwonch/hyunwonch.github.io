@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-[Paper](https://doi.org/10.1016/j.chroma.2023.464582) I co-authored was accepted and published in Journal of Chromatography A!
+[Our paper](https://doi.org/10.1016/j.chroma.2023.464582) was accepted and published in Journal of Chromatography A!
