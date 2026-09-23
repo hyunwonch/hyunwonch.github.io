@@ -1,91 +1,160 @@
-# - title: General Information
-#   type: map
-#   contents:
-#     - name: Full Name
-#       value: Hyunwon Chung
-#     # - name: Date of Birth
-#     #   value: 14th March 1879
-#     - name: Languages
-#       value: English, Korean
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Hyunwon Chung
+    - name: Languages
+      value: English, Korean
+    - name: Interests
+      value: Efficient AI, LLM Inference Approximation, Reconfigurable Architecture, VLIW Processor, Dataflow Architecture, High-performance SoC, Ultra Low-Power Neural Engine
+
 - title: Education
   type: time_table
   contents:
-    - title: PhD. in Electrical and Computer Engineering
+    - title: Ph.D. in Electrical and Computer Engineering
       institution: University of Michigan, Ann Arbor
-      year: On-going
+      year: 2024 - May 2028 (expected)
       description:
-        - Advised by Professor David Blaauw and Professor Hun-Seok Kim
-        # - title: Description 3.
-        #   contents:
-        #     - Sub-description 1.
-        #     - Sub-description 2.
-    - title: MS. in Electrical and Computer Engineering
+        - Research Advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+    - title: M.S. in Electrical and Computer Engineering
       institution: University of Michigan, Ann Arbor
-      year: 2024
+      year: 2022 - 2024
       description:
-        - Advised by Professor David Blaauw and Professor Hun-Seok Kim
-    - title: BS. in Electrical and Computer Engineering
+        - Research Advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+    - title: B.S. in Electrical Engineering
       institution: Korea University, Seoul, South Korea
-      year: 2022
+      year: Mar 2015 - Feb 2022
       description:
-        - Advised by Professor Jongsun Park
+        - Includes 2-year military service
+        - Advised by Prof. Jongsun Park
 
-# - title: Experience
-#   type: time_table
-#   contents:
-#     - title: Graduate Student Research Assistant (GSRA)
-#       institution: University of Michigan, Ann Arbor
-#       year: 2023-2024
-#       description:
-#         - Description 1.
-#         - Description 2.
-#         - title: Description 3.
-#           contents:
-#             - Sub-description 1.
-#             - Sub-description 2.
-#     - title: Research Assistant (RA)
-#       institution: University of Michigan, Ann Arbor
-#       year: 2023
-#       description:
-#         - Description 1.
-#         - Description 2.
+- title: Research
+  type: time_table
+  contents:
+    - title: Activation-Aware Approximation Algorithm and Hardware Co-Design for Billion-Parameter Foundation Models
+      institution: University of Michigan, Ann Arbor
+      description:
+        - Co-advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+        - Developed activation-aware approximation algorithms for efficient inference in large-scale foundation models, including LLMs, vision-language models, and diffusion models by dynamically approximating input activations
+        - Proposed on-the-fly low-rank activation approximation using alternating least-squares (ALS) and a hybrid weight-activation approximation scheme, showing improved accuracy under matched FLOPs budgets compared to weight-only low-rank approximation
+        - Designed approximation-aware accelerator architectures and performance/energy models to analyze FLOPs reduction, memory traffic, compute intensity, data movement, memory hierarchy, and dataflow trade-offs for efficient foundation-model inference
+    - title: Ultra-Low-Power Neural Audio Compression Engine
+      institution: University of Michigan, Ann Arbor
+      description:
+        - Co-advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+        - Developed and quantized neural network models for real-time audio compression, co-designing algorithms with hardware constraints to target low-latency, low-power inference
+        - Built performance and power models to quantify energy and latency trade-offs across loop ordering, data reuse, memory access patterns, and on-chip buffer/SRAM sizing for convolution-dominated workloads
+        - Explored systolic-array architectures by evaluating array dimensions, processing-element (PE) utilization, dataflow strategies, and microarchitectural variants for compressed neural network models
+        - Tapeout submitted using TSMC 22 nm technology
+    - title: A Streaming Processor with Hardware-Level Scheduling for Advanced Spectrum Sensing
+      institution: University of Michigan, Ann Arbor
+      description:
+        - Co-advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+        - Developed a 28 nm CMOS streaming processor with a hardware kernel launcher, enabling 10 ns runtime reconfiguration while reducing CPU scheduling overhead for data-dependent RF workloads
+        - Designed a dynamic hardware scheduling unit that autonomously manages graph-based kernel dispatch, resource availability, and multi-channel execution without CPU intervention
+        - Implemented concurrent execution and speculative preloading to improve PE utilization by up to 5x and achieve up to 8.3x end-to-end performance improvement
+        - Published as first author at the 2026 IEEE Symposium on VLSI Circuits, achieving 248.5 GFLOPS/mm² compute density and 1.67 TFLOPS/W energy efficiency in 28 nm CMOS
+    - title: COCHON (Configurable Optical Communications via Heterogeneous-Processing Optimized Node)
+      institution: University of Michigan, Ann Arbor
+      description:
+        - Co-advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+        - Contributed to a 224.72 mm² GF 12 nm heterogeneous coherent optical baseband SoC integrating five accelerators - RX baseband, two FEC decoders, and RX/TX bit-domain processors - under a Cortex-M4 host
+        - Led top-level SoC integration and physical design across multiple accelerator teams, driving chip-level floorplanning, multi-clock timing closure, power delivery, and tapeout execution
+        - Designed multi-clock SoC integration infrastructure, including robust CDC architecture, asynchronous streaming interfaces, and timing-safe data transfer across independently clocked accelerator domains
+        - Taped out end-to-end silicon supporting 10 baseband kernels, 8 FEC code types, 2 bit-framing modes, and complete coherent optical RX processing for OpenZR+ and SDA OCT configurations
+    - title: DASH-SoC (Domain-Focused Advanced Software Reconfiguration Heterogeneous)
+      institution: University of Michigan, Ann Arbor
+      description:
+        - Co-advisors: Prof. David Blaauw and Prof. Hun-Seok Kim
+        - Contributed to the architecture and implementation of two reconfigurable accelerators for a 159.6 mm² DARPA-funded DASH SoC, enabling domain-adaptive processing across diverse communication workloads
+        - Redesigned the Domain Adaptive Processor (DAP) compute architecture from a 16-bit to 32-bit datapath, improving arithmetic capability, kernel flexibility, and workload coverage
+        - Implemented multi-kernel execution support in DAP and optimized physical design to reduce routing congestion, improve timing closure, and enhance silicon implementation efficiency
+        - Designed a fully reconfigurable FEC accelerator supporting LTE/5G, Wi-Fi, and SDA OCT standards by integrating six FEC modes within a unified processor architecture
+        - Co-authored related work published in 2026 IEEE Transactions on Circuits and Systems I (TCAS-I)
+    - title: Low Power Accelerators for ML & Communication Systems
+      institution: Korea University, Seoul, South Korea
+      description:
+        - Advisor: Prof. Jongsun Park
+        - Designed a DCT-based JPEG encoder/decoder architecture and synthesized the RTL in 65 nm TSMC technology
+        - Developed a low-power hardware implementation of a Viterbi decoder architecture
+        - Proposed an 8-bit fixed-point low-power accelerator for convolutional neural networks
+        - Designed a folded architecture for fully-connected layers to improve compute efficiency
 
-#     - title: Research Assistant (RA)
-#       institution: Korea University, Seoul, South Korea
-#       year: 2020-2021
+- title: Selected Projects
+  type: time_table
+  contents:
+    - title: Parameter-Efficient Fine-Tuning of Vision Transformers
+      institution: EECS 553 course project at the University of Michigan
+      description:
+        - Applied parameter-efficient fine-tuning methods, including LoRA, LoHa, and LoKr, to Vision Transformer image classification across six benchmark datasets - CIFAR-10, CIFAR-100, Caltech101, Caltech256, DTD, and SUN397
+        - Built a flexible ViT fine-tuning framework supporting selective adaptation of attention layers, MLP layers, and bias parameters, enabling controlled comparison across different training configurations
+        - Managed and analyzed approximately 100 fine-tuning experiments over 100+ GPU hours, showing that LoKr can outperform LoRA with fewer trainable parameters and that attention-layer adaptation is often more effective than MLP-layer adaptation
+    - title: PIM-Based Secure Memory Acceleration for Confidential Computing
+      institution: EECS 598 course project at the University of Michigan
+      description:
+        - Investigated a processing-in-memory architecture for secure memory systems, focusing on moving AES encryption and decryption into 3D-stacked memory to reduce off-chip data exposure and improve confidential computing performance
+        - Analyzed AES dataflow for in-memory execution, including SubBytes, MixColumns, and AddRoundKey operations, and estimated a baseline execution cost of 361 cycles per AES block before memory read/write overhead
+        - Evaluated PIM simulation infrastructure using PIMSim, DRAMSim2, MARSSx86, and gem5, and conducted trace-based simulation showing approximately 441 cycles per block and 1.64 s latency for 1 GB AES encryption on an HMC-style PIM system
+    - title: A Dynamic Quantized CNN Processor with Analog Computing
+      institution: EECS 627 course project at the University of Michigan
+      description:
+        - Designed an analog MAC unit which includes digital to pulse converter, analog datapath, and flash ADC
+        - Proposed a dynamic quantization method which allows each layer to have different scaling
+        - Applied post-quantization training and quantization-aware training for 5-bit quantization, to get proper accuracy on MNIST and CIFAR-10 datasets
+    - title: 16-bit Microprocessor with In-memory Computing Technology based on 6T SRAM Architecture
+      institution: EECS 427 course project at the University of Michigan
+      description:
+        - Developed a 16-bit microprocessor based on RISC-V ISA, which includes RF, ALU, Controller, Program Counter, Shifter, and IMEM/DMEM
+        - Designed a customized 6T-SRAM based in-memory computing (IMC) module into the 16-bit microprocessor
+    - title: The World Embedded Software Contest - AI Humanoid Division
+      description:
+        - Developed a program for real-time image processing and humanoid robot control using Python
+        - Won 3rd place and awarded the Embedded SW & System Industry Association Chairman's award
 
+- title: Honors and Awards
+  type: time_table
+  contents:
+    - year: 2026
+      items:
+        - Best Student Paper Nomination, IEEE Symposium on VLSI Technology and Circuits
+        - IEEE Solid-State Circuits Society (SSCS) Travel Grant
+        - IEEE Symposium on VLSI Circuits Travel Grant
+        - University of Michigan Rackham Conference Travel Grant
+    - year: 2025
+      items:
+        - Electrical and Computer Engineering Department Graduate Fellowship, University of Michigan
+    - year: 2018 - 2021
+      items:
+        - Dean's list at School of Electrical Engineering, Korea University
+    - year: 2019
+      items:
+        - Third Place and Embedded SW & System Industry Association Chairman's Award, World Embedded Software Contest, AI Humanoid Division
+    - year: 2016
+      items:
+        - Miraero Scholarship at School of Electrical Engineering, Korea University
+    - year: 2015
+      items:
+        - National Scholarship (Admission with highest distinction), Korea University
 
-# - title: Open Source Projects
-#   type: time_table
-#   contents:
-#     - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-#       year: 2015-now
-#       description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
+- title: Military Service
+  type: time_table
+  contents:
+    - title: Squad Leader, Sergeant, Headquarter, 23rd CBERN, 2ID, Camp Humphreys
+      institution: Korean Augmentation To the United States Army (KATUSA)
+      year: Sep 2016 - Jun 2018
 
-# - title: Honors and Awards
-#   type: time_table
-#   contents:
-#     - year: 1921
-#       items:
-#         - Nobel Prize in Physics
-#         - Matteucci Medal
-#     - year: 2029
-#       items:
-#         - Max Planck Medal
-
-# - title: Academic Interests
-#   type: nested_list
-#   contents:
-#     - title: Coarse-Grained Reconfigurable Architecture (CGRA)
-#       items:
-#         - Description 1.
-#         - Description 2.
-#     - title: Reconfigurable Accelerator
-#       items:
-#         - Programmable CNN Accelerator
-#         - Reconfigurable Forward Error Correction (FEC) Accelerator
-
-# - title: Other Interests
-#   type: list
-#   contents:
-#     - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+- title: Skills
+  type: nested_list
+  contents:
+    - title: Programming & ML Frameworks
+      items:
+        - C, C++, Python, PyTorch, TensorFlow
+    - title: GPU & Parallel Programming
+      items:
+        - CUDA, Triton, OpenMP
+    - title: Hardware Simulation
+      items:
+        - SystemVerilog, Verilog, VCS, ModelSim, HSPICE
+    - title: Circuit Design Tools
+      items:
+        - Cadence Virtuoso, Cadence Innovus, Calibre
