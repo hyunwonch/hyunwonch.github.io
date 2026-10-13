@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper was accepted to Conference on Neural Information Processing Systems (NeurIPS) 2026!
+[Our paper](https://arxiv.org/abs/2610.02882) was accepted to Conference on Neural Information Processing Systems (NeurIPS) 2026!
